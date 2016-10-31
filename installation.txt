@@ -1,0 +1,4 @@
+install Rust: https://www.rust-lang.org/en-US/downloads.html
+install geckodriver: https://github.com/mozilla/geckodriver
+
+export PATH=$PATH:/Users/katharina/Dropbox/Projects/Scrape\ News/Code/geckodriver-master/target/release
