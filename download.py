@@ -1,6 +1,5 @@
 """
 CNN takes about 25 minutes, Fox takes about 75 minutes.
-Might want to change ".close()" to ".quit()"
 """
 
 import os
