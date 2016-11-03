@@ -65,6 +65,8 @@ def parse_page(filename):
         text = '\n'.join(text_paragraphs)
     else:
         text_tag = soup.find('div', {'id': 'storytext'})
+        if not text_tag:
+            text_tag = soup.find('article')
         if text_tag:
             text_tags = text_tag.find_all('p')
             text_paragraphs = [tag.text.strip() for tag in text_tags]

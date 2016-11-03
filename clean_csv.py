@@ -1,3 +1,5 @@
+""" Clean CNN And Fox csv files, making data.csv, counts.csv, and tfidf.csv """
+
 import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -19,6 +21,7 @@ def main():
     df = df_cnn.append(df_fox)
 
     # df = clean_keywords(df)
+    df = df[df['text'].notnull()]
     df.to_csv(outfile, index = False)
 
     site_dict = sites_text(df)

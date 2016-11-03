@@ -18,26 +18,15 @@ prevFit <- stm(out$documents, out$vocab, K = NUM_TOPICS,
 
 # Top words for each topic
 labelTopics(prevFit)
-# Word cloud for topic 1
-cloud(prevFit, topic = 1, scale = c(3, .25))
-png('cloud3.png')
-cloud(prevFit, topic = 3, scale = c(4, 0.5))
-title("Topic 3")
-dev.off()
-png('cloud5.png')
-cloud(prevFit, topic = 5, scale = c(4, 0.5))
-title('Topic 5')
-dev.off()
 
+# Word clouds
+for (i in 1:5) {
+  png(paste0("cloud", i, ".png"))
+  cloud(prevFit, topic = i, scale = c(3, 0.25))
+  title(paste0("Topic ", i))
+  dev.off()
+}
 
-# A sentence for topic 3 - doesn't work
-thoughts1 <- findThoughts(prevFit, texts = out$documents, n = 1, topics = 3)
-plot(thoughts1)
-
-thoughts1 <- findThoughts(prevFit, texts = out$documents, n = 1, topics = 1)$docs[[1]]
-png("topic1.png")
-plotQuote(thoughts1, main = "Topic 1", width = 100)
-dev.off()
 
 # Topic proportions by site and associated words
 plot.STM(prevFit, text.cex = 0.6, n = 4, xlim = c(0, 0.7))
@@ -66,3 +55,15 @@ plot.STM(content, type = "perspectives", topics = 3)
 title("Topic 3 by New Source")
 dev.off()
 plot.STM(content, type = "perspectives", topics = c(3,5))
+
+
+
+
+# A sentence for topic 3 - doesn't work
+thoughts1 <- findThoughts(prevFit, texts = out$documents, n = 1, topics = 3)
+plot(thoughts1)
+
+thoughts1 <- findThoughts(prevFit, texts = out$documents, n = 1, topics = 1)$docs[[1]]
+png("topic1.png")
+plotQuote(thoughts1, main = "Topic 1", width = 100)
+dev.off()

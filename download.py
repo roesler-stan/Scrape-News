@@ -24,8 +24,8 @@ def download_pages(cnn_directory, fox_directory):
     Randomly decide which one to download first """
     CNN_LINK = 'http://www.cnn.com'
     FOX_LINK = 'http://www.foxnews.com'
-    # website_dict = {'CNN': {'link': CNN_LINK, 'directory': cnn_directory}, 'Fox': {'link': FOX_LINK, 'directory': fox_directory}}
-    website_dict = {'Fox': {'link': FOX_LINK, 'directory': fox_directory}}
+    website_dict = {'CNN': {'link': CNN_LINK, 'directory': cnn_directory}, 'Fox': {'link': FOX_LINK, 'directory': fox_directory}}
+    # website_dict = {'Fox': {'link': FOX_LINK, 'directory': fox_directory}}
     # website_dict = {'CNN': {'link': CNN_LINK, 'directory': cnn_directory}}
     dict_list = sorted(website_dict.items(), key = lambda x: random.random())
     website_dict = OrderedDict(dict_list)

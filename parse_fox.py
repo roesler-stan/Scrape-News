@@ -66,8 +66,15 @@ def parse_page(filename):
         text = re.sub('\s\s+', ' ', text)
         row['text'] = text
     else:
-        print 'No text for ' + filename
-        return {}
+        text_tag = soup.find('div', {'itemprop': 'articleBody'})
+        if text_tag:
+            text_tags = text_tag.find_all('p')
+            text_paragraphs = [tag.text.strip() for tag in text_tags]
+            text = '\n'.join(text_paragraphs)
+            row['text'] = text
+        else:
+            print 'No text for ' + filename
+            return {}
 
     url_tag = soup.find('link', {'rel': 'canonical'})
     if url_tag:
@@ -78,7 +85,7 @@ def parse_page(filename):
     row['title'] = title
 
     date_tag = soup.find('time', {'itemprop': 'datePublished'})
-    if date_tag:
+    if date_tag and date_tag.has_attr('datetime'):
         date_str = date_tag['datetime'].split('T')[0]
         date = datetime.datetime.strptime(date_str, '%Y-%m-%d')
         row['date'] = date_str

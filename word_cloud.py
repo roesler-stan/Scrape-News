@@ -6,18 +6,18 @@ import clean_text as ct
 
 def main():
     mask_file = '../Output/speech_bubble.png'
-    infile_cnn = '../Data/cnn.csv'
-    infile_fox = '../Data/fox.csv'
+    infile = '../Data/data.csv'
     outfile_cnn = '../Output/wordcloud_cnn.png'
     outfile_fox = '../Output/wordcloud_fox.png'
 
-    draw_cloud(infile_cnn, outfile_cnn, mask_file)
-    draw_cloud(infile_fox, outfile_fox, mask_file)
-
-def draw_cloud(infile, outfile, mask_file):
-    MAX_WORDS = 2000
     df = pd.read_csv(infile)
-    text = df['text'].to_string()
+    draw_cloud(df, 'CNN', outfile_cnn, mask_file)
+    draw_cloud(df, 'Fox', outfile_fox, mask_file)
+
+def draw_cloud(df, site, outfile, mask_file):
+    MAX_WORDS = 2000
+    subset = df[df['site'] == site]
+    text = subset['text'].to_string()
     words = ct.parse_text(text)
     text = ' '.join(words)
     masked_cloud(text, outfile, MAX_WORDS, mask_file)
