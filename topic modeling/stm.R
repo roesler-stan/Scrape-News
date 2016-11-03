@@ -21,9 +21,8 @@ labelTopics(prevFit)
 
 # Word clouds
 for (i in 1:5) {
-  png(paste0("cloud", i, ".png"))
+  jpeg(paste0("cloud", i, ".jpeg"), quality = 100, pointsize = 18)
   cloud(prevFit, topic = i, scale = c(3, 0.25))
-  title(paste0("Topic ", i))
   dev.off()
 }
 
@@ -50,20 +49,10 @@ content <- stm(out$documents, out$vocab, K = NUM_TOPICS,
                prevalence =~ site, content =~ site,
                max.em.its = 75, data = out$meta, init.type = "Spectral")
 
-png("topic3_sites.png")
-plot.STM(content, type = "perspectives", topics = 3)
-title("Topic 3 by New Source")
+png("topic5_sites.png")
+plot.STM(content, type = "perspectives", topics = 5, custom.labels = c("CNN", "Fox"), n = 50)
+title("Topic 5 by New Source")
 dev.off()
-plot.STM(content, type = "perspectives", topics = c(3,5))
 
-
-
-
-# A sentence for topic 3 - doesn't work
-thoughts1 <- findThoughts(prevFit, texts = out$documents, n = 1, topics = 3)
-plot(thoughts1)
-
-thoughts1 <- findThoughts(prevFit, texts = out$documents, n = 1, topics = 1)$docs[[1]]
-png("topic1.png")
-plotQuote(thoughts1, main = "Topic 1", width = 100)
-dev.off()
+image <- "/Users/katharina/Dropbox/Projects/Scrape News/Data/analysis.Rdata"
+save.image(image)
